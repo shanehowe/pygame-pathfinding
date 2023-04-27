@@ -186,12 +186,12 @@ def find_shortest_path(start_point, end_point):
         return
     current_state = FINDING
     queue = [Node(start_point)]
-    visited = {}
+    visited = set()
 
     # visited.append(queue[0].position)
     # visited as a dict performs so much 
     # faster then the original list version
-    visited[str(queue[0].position)] = True
+    visited.add(queue[0].position)
     while len(queue) > 0:
         current_node = queue.pop(0)
         if current_node.position == end_point:
@@ -203,13 +203,13 @@ def find_shortest_path(start_point, end_point):
         y, x = current_node.position
         neighbouring_moves = get_neighbours(y, x)
         for move in neighbouring_moves:
-            if str(move) not in visited:
+            if move not in visited:
                 new_node = Node(move)
                 new_node.set_parent(current_node)
                 queue.append(new_node)
                 
         # visited.append(current_node.position)
-        visited[str(current_node.position)] = True
+        visited.add(current_node.position)
 
     return None
 
